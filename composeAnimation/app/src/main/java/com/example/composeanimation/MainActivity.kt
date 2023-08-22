@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.composeanimation.ui.theme.ComposeAnimationTheme
 import com.example.animations.AnimateAsStateAnimation
 import com.example.animations.AnimateContentSizeAnimation
 import com.example.animations.AnimatedContentAnimation
@@ -36,7 +37,7 @@ import com.example.animations.AnimatedVisibilityAnimation
 import com.example.animations.CrossfadeAnimation
 import com.example.animations.RememberInfiniteTransitionAnimation
 import com.example.animations.UpdateTransitionAnimation
-import com.example.composeanimation.ui.theme.ComposeAnimationTheme
+import com.example.animations.Quiz1
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +81,9 @@ class MainActivity : ComponentActivity() {
             // animateAsState用
             var state6 by remember { mutableStateOf(true) }
             val size: Dp by animateDpAsState(targetValue = if(state6) 100.dp else 200.dp)
+
+            // Quiz1
+            var quiz1_state by remember { mutableStateOf(true) }
 
             ComposeAnimationTheme {
                 Surface(
@@ -125,6 +129,10 @@ class MainActivity : ComponentActivity() {
 
                         FloatingActionButton(onClick = { state6 = !state6 }) {
                             AnimateAsStateAnimation(size = size)
+                        }
+
+                        FloatingActionButton(onClick = { quiz1_state = !quiz1_state }) {
+                            Quiz1(transition = transition)
                         }
                     }
                 }
