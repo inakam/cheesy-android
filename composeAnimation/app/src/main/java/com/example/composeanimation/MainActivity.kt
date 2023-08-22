@@ -37,7 +37,7 @@ import com.example.animations.AnimatedVisibilityAnimation
 import com.example.animations.CrossfadeAnimation
 import com.example.animations.RememberInfiniteTransitionAnimation
 import com.example.animations.UpdateTransitionAnimation
-import com.example.animations.Quiz1
+import com.example.animations.RotatingButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,9 +131,7 @@ class MainActivity : ComponentActivity() {
                             AnimateAsStateAnimation(size = size)
                         }
 
-                        FloatingActionButton(onClick = { quiz1_state = !quiz1_state }) {
-                            Quiz1(transition = transition)
-                        }
+                        RotatingButton()
                     }
                 }
             }

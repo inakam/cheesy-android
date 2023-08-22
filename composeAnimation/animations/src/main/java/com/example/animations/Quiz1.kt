@@ -1,45 +1,49 @@
 package com.example.animations
 
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Transition
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
-fun Quiz1(
-    transition: Transition<Boolean>
-) {
-    val scale by transition.animateFloat(label = "scale") {
-        if (it) 2f else 1f
-    }
+fun RotatingButton() {
+    // 回転の状態を管理する変数
+    var rotationState by remember { mutableStateOf(0f) }
+    // アニメーションが進行中かどうかを管理する変数
+    var isAnimating by remember { mutableStateOf(false) }
 
-    val color by transition.animateColor(label = "color") {
-        if (it) Color.LightGray else Color.Yellow
-    }
-    val textSize by transition.animateFloat (label = "textSize") {
-        if (it) 10f else 20f
-    }
+    val rotation by animateFloatAsState(
+        targetValue = if (isAnimating) 360f else 0f,
+        animationSpec = if (isAnimating) {
+            // 加速しながら開始、減速しながら終了
+            keyframes {
+                durationMillis = 4000 // アニメーションの合計時間
+                0f at 0 with FastOutSlowInEasing // 開始時の回転角度
+                360f at 4000 with FastOutSlowInEasing // 終了時の回転角度
+            }
+        } else {
+            spring() // 通常はspringアニメーション
+        }
+    )
+
     Box(
-        Modifier
-            .animateContentSize()
-            .background(color)
-            .width(100.dp * scale)
-            .height(100.dp * scale)
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            fontSize = textSize.sp,
-            text = "UpdateTransition")
+        Button(
+            onClick = {
+                isAnimating = !isAnimating // アニメーション状態をトグル
+            },
+            modifier = Modifier.graphicsLayer(
+                rotationZ = rotation // 回転角度を適用
+            )
+        ) {
+            Text("Rotate Me!")
+        }
     }
 }
