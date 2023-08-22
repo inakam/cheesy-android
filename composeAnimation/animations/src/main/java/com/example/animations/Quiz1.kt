@@ -38,7 +38,7 @@ fun RotatingButton() {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+//        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Button(

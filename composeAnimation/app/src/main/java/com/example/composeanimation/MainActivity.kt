@@ -38,6 +38,7 @@ import com.example.animations.CrossfadeAnimation
 import com.example.animations.RememberInfiniteTransitionAnimation
 import com.example.animations.UpdateTransitionAnimation
 import com.example.animations.RotatingButton
+import com.example.animations.SplittingButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +110,7 @@ class MainActivity : ComponentActivity() {
                             Spacer(modifier = Modifier.padding(4.dp))
                             AnimatedContentAnimation(state = state3)
                             Spacer(modifier = Modifier.padding(4.dp))
-                            Button(onClick = { state3 += 1}) {
+                            Button(onClick = { state3 += 1 }) {
                                 Text(text = "+")
                             }
                             Button(onClick = {
@@ -130,6 +131,8 @@ class MainActivity : ComponentActivity() {
                         FloatingActionButton(onClick = { state6 = !state6 }) {
                             AnimateAsStateAnimation(size = size)
                         }
+
+                        SplittingButton()
 
                         RotatingButton()
                     }
