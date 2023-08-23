@@ -39,6 +39,7 @@ import com.example.animations.RememberInfiniteTransitionAnimation
 import com.example.animations.UpdateTransitionAnimation
 import com.example.animations.RotatingButton
 import com.example.animations.SplittingButton
+import com.example.animations.ShimmerRectangle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +132,8 @@ class MainActivity : ComponentActivity() {
                         FloatingActionButton(onClick = { state6 = !state6 }) {
                             AnimateAsStateAnimation(size = size)
                         }
+
+                        ShimmerRectangle(height = 225.dp)
 
                         SplittingButton()
 
