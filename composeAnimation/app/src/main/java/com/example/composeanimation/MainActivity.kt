@@ -40,6 +40,7 @@ import com.example.animations.UpdateTransitionAnimation
 import com.example.animations.RotatingButton
 import com.example.animations.SplittingButton
 import com.example.animations.ShimmerRectangle
+import com.example.animations.TextAnimation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,54 +85,13 @@ class MainActivity : ComponentActivity() {
             var state6 by remember { mutableStateOf(true) }
             val size: Dp by animateDpAsState(targetValue = if(state6) 100.dp else 200.dp)
 
-            // Quiz1
-            var quiz1_state by remember { mutableStateOf(true) }
-
             ComposeAnimationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column(modifier = Modifier.fillMaxSize()) {
-                        FloatingActionButton(onClick = {visible1 = !visible1}, modifier = Modifier.padding(4.dp)) {
-                            AnimatedVisibilityAnimation(visible = visible1)
-                        }
-
-                        FloatingActionButton(onClick = { state1 = !state1 }) {
-                            AnimateContentSizeAnimation(state = state1)
-                        }
-
-                        FloatingActionButton(onClick = { state2 = !state2 }) {
-                            CrossfadeAnimation(state = state2)
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Spacer(modifier = Modifier.padding(4.dp))
-                            AnimatedContentAnimation(state = state3)
-                            Spacer(modifier = Modifier.padding(4.dp))
-                            Button(onClick = { state3 += 1 }) {
-                                Text(text = "+")
-                            }
-                            Button(onClick = {
-                                if (state3 > 0) {
-                                    state3 -= 1
-                                }
-                            }) {
-                                Text(text = "-")
-                            }
-                        }
-
-                        RememberInfiniteTransitionAnimation(state = state4)
-
-                        FloatingActionButton(onClick = { state5 = !state5 }) {
-                            UpdateTransitionAnimation(transition = transition)
-                        }
-
-                        FloatingActionButton(onClick = { state6 = !state6 }) {
-                            AnimateAsStateAnimation(size = size)
-                        }
+                        TextAnimation()
 
                         ShimmerRectangle(height = 225.dp)
 
