@@ -14,27 +14,16 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun TextAnimation() {
-    val text1AlphaAnimatable = remember { Animatable(0f) }
-    val text2AlphaAnimatable = remember { Animatable(0f) }
-    val text3AlphaAnimatable = remember { Animatable(0f) }
+    val texts = listOf("テキスト1", "テキスト2", "テキスト3")
+    val animatables = remember { texts.map { Animatable(0f, 0f) } }
 
     LaunchedEffect(true) {
         while (true) { // 無限ループでアニメーションを繰り返す
-            listOf(text1AlphaAnimatable, text2AlphaAnimatable, text3AlphaAnimatable).forEach { animatable ->
-                // アルファ値を0から1へ変化
-                animatable.animateTo(
-                    targetValue = 1f,
-                    animationSpec = tween(durationMillis = 500)
-                )
-                delay(100)
+            animatables.forEach { animatable ->
+                animateAlpha(animatable, targetValue = 1f)
             }
-            listOf(text1AlphaAnimatable, text2AlphaAnimatable, text3AlphaAnimatable).forEach { animatable ->
-                // アルファ値を1から0へ変化
-                animatable.animateTo(
-                    targetValue = 0f,
-                    animationSpec = tween(durationMillis = 500)
-                )
-                delay(100)
+            animatables.forEach { animatable ->
+                animateAlpha(animatable, targetValue = 0f)
             }
         }
     }
@@ -46,20 +35,26 @@ fun TextAnimation() {
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                modifier = Modifier.alpha(text1AlphaAnimatable.value),
-                text = "テキスト1"
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                modifier = Modifier.alpha(text2AlphaAnimatable.value),
-                text = "テキスト2"
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                modifier = Modifier.alpha(text3AlphaAnimatable.value),
-                text = "テキスト3"
-            )
+            texts.forEachIndexed { index, text ->
+                AnimatedText(animatables[index].value, text)
+                if (index < texts.size - 1) Spacer(modifier = Modifier.height(20.dp))
+            }
         }
     }
+}
+
+@Composable
+fun AnimatedText(alpha: Float, text: String) {
+    Text(
+        modifier = Modifier.alpha(alpha),
+        text = text
+    )
+}
+
+suspend fun animateAlpha(animatable: Animatable<Float, AnimationVector1D>, targetValue: Float) {
+    animatable.animateTo(
+        targetValue = targetValue,
+        animationSpec = tween(durationMillis = 500)
+    )
+    delay(100)
 }
