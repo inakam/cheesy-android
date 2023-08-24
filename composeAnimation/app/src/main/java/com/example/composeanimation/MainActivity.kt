@@ -41,6 +41,7 @@ import com.example.animations.RotatingButton
 import com.example.animations.SplittingButton
 import com.example.animations.ShimmerRectangle
 import com.example.animations.TextAnimation
+import com.example.animations.MotimotiButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,13 +92,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column(modifier = Modifier.fillMaxSize()) {
-                        TextAnimation()
+//                        TextAnimation()
 
-                        ShimmerRectangle(height = 225.dp)
+                        MotimotiButton(onClick = {
+                            // ボタンがクリックされたときの処理
+                            println("Bouncy button clicked!")
+                        }) {
+                            Text("Click Me!")
+                        }
 
-                        SplittingButton()
+//                        ShimmerRectangle(height = 225.dp)
 
-                        RotatingButton()
+//                        SplittingButton()
+
+//                        RotatingButton()
                     }
                 }
             }
