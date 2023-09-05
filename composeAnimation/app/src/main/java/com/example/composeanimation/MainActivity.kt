@@ -43,6 +43,7 @@ import com.example.animations.ShimmerRectangle
 import com.example.animations.TextAnimation
 import com.example.animations.MotimotiButton
 import com.example.animations.ExpandButton
+import com.example.animations.RotatingEffectButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +94,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column(modifier = Modifier.fillMaxSize()) {
-                        ExpandButton()
+                        RotatingEffectButton()
+//                        ExpandButton()
 //                        TextAnimation()
 
 //                        MotimotiButton(onClick = {
